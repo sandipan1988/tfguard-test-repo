@@ -10,6 +10,15 @@ resource "aws_s3_bucket" "insecure_bucket" {
     Name        = "Insecure Bucket"
     Environment = "Test"
   }
+
+  lifecycle_rule {
+    id      = "cleanup-old-objects"
+    enabled = true
+
+    expiration {
+      days = 90
+    }
+  }
 }
 
 resource "aws_security_group" "insecure_sg" {
