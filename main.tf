@@ -4,10 +4,10 @@ provider "aws" {
 
 resource "aws_s3_bucket" "insecure_bucket" {
   bucket = "tfguard-test-insecure-bucket"
-  acl    = "public-read" # Vulnerability: Publicly readable bucket
+  acl    = "private" # Remedied: Restricted access
 
   tags = {
-    Name        = "Insecure Bucket"
+    Name        = "Secured Bucket"
     Environment = "Test"
   }
 
@@ -21,15 +21,15 @@ resource "aws_s3_bucket" "insecure_bucket" {
   }
 }
 
-resource "aws_security_group" "insecure_sg" {
-  name        = "insecure_sg"
-  description = "Allow all inbound traffic"
+resource "aws_security_group" "secure_sg" {
+  name        = "secure_sg"
+  description = "Allow only HTTPS inbound"
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"] # Vulnerability: Open to the world
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/8"] # Remedied: Restricted to internal network
   }
 
   egress {
