@@ -20,4 +20,5 @@ jobs:
         with:
           api-key: ${{ secrets.TFGUARD_API_KEY }}
           fail-on-critical: true
-          fail-on-high: false
+          fail-on-high: true
+          fail-on-medium: true
