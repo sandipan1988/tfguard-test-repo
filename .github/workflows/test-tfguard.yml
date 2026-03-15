@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: TFGuard Security Scanner
-        uses: sandipan1988/tfguard-action@v1 # REPLACE with your username and branch if different
+        uses: sandipan1988/tfguard-action/premium@v1
         with:
           api-key: ${{ secrets.TFGUARD_API_KEY }}
           fail-on-critical: true
