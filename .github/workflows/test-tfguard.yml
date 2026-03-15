@@ -1,0 +1,23 @@
+name: TFGuard Security Scan
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  tfguard-scan:
+    name: TFGuard Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: TFGuard Security Scanner
+        uses: sandipan/tfguard-action@main # REPLACE with your username and branch if different
+        with:
+          api-key: ${{ secrets.TFGUARD_API_KEY }}
+          fail-on-critical: true
+          fail-on-high: false
